@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import RansomSVD as SVD
 # Plan:
 # check for string "Fecha", which appears right after each senator's name
 # For each senator make a row
