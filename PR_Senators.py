@@ -96,3 +96,6 @@ for m in range(len(senators_)):
 
 print(df)
 
+svd = SVD.rsvd(myData, 30, 1, 5)
+
+print(svd)
