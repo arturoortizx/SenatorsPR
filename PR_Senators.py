@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import RandomSVD as SVD
+import matplotlib.pyplot as plt
 # Plan:
 # check for string "Fecha", which appears right after each senator's name
 # For each senator make a row
@@ -97,6 +98,15 @@ for m in range(len(senators_)):
 
 print(df)
 
-svd = SVD.rsvd(myData, 30, 1, 5)
+svd = SVD.rsvd(myData, 81, 1, 5)
 
 print(svd)
+
+error = np.zeros([np.linalg.matrix_rank(myData), 1])
+for k in range(np.linalg.matrix_rank(myData)):
+    Ak = np.zeros((30, np.linalg.matrix_rank(myData)), int)
+    for i in range(k):
+        Ak = Ak + svd[1][i, i] * (svd[0][:, i].dot(svd[2][:, i]))
+    error[k] = np.linalg.norm(myData - Ak)
+
+print(plt.plot(error))
