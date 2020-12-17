@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import RandomSVD as SVD
 import matplotlib.pyplot as plt
+
 # Plan:
 # check for string "Fecha", which appears right after each senator's name
 # For each senator make a row
@@ -19,7 +20,7 @@ def vote_to_num(text):
     return 0
 
 # removes blank lines from the txt file
-f = open("output.txt", "r")
+f = open("PRSenate1.txt", "r")
 lines = f.readlines()
 f.close()
 
@@ -42,31 +43,30 @@ senators_ = senators
 print(senators_)
 f.close()
 
-
 votes_per_sen = []
 
 # records each senators vote for each bill
-for n in range(len(senators)):
-    bill_num = []
-    passed_senator = False
-    f = open("noblanks.txt", "r")
-    for pos, l in enumerate(f):
-        l = l.removesuffix("\n")
-        if senators[n - 1][0] in l:
-            senator = senators[n]
-            passed_senator = True
-            t = 0
-        if passed_senator:
-            if l.isnumeric():
-                bill_num = bill_num + [l, pos]
-                t = t + 1
-        if pos - 29 in bill_num:
-            bill = bill_num[bill_num.index(pos - 29) - 1]
-            vote = l
-            senators[n] = senators[n] + [[bill, vote_to_num(l)]]
+for file in range(16):
+    for n in range(len(senators)):
+        bill_num = []
+        passed_senator = False
+        f = open("PRSenate" + str(file + 1) + ".txt", "r")
+        sen_name = senators[n][0]
+        for pos, l in enumerate(f):
+            l = l.replace("\r", "").replace("\n", "")
+            if "Votante" in l and passed_senator:
+                break
 
-    f.close()
+            if sen_name in l:
+                passed_senator = True
+            if passed_senator:
+                if l.isnumeric():
+                    bill_num.append(l)
+            if ("Ausente" in l or "A favor" in l or "En contra" in l or "Abstenido" in l) and passed_senator and bill_num:
+                senators[n].append([bill_num.pop(0), vote_to_num(l)])
+        f.close()
 
+print(senators)
 # Figuring out the numbers of the distinct bill numbers
 billNums = dict()
 billCount = 0
@@ -98,15 +98,35 @@ for m in range(len(senators_)):
 
 print(df)
 
-svd = SVD.rsvd(myData, 81, 1, 5)
-
-print(svd)
-
+[U, S, V] = SVD.rsvd(myData, 30, 1, 5)
+print(np.zeros(np.shape(myData)))
 error = np.zeros([np.linalg.matrix_rank(myData), 1])
+
+A = np.zeros((30, np.linalg.matrix_rank(myData)), int)
+for i in range(np.linalg.matrix_rank(myData)):
+    A = A + S[i, i] * (U[:, i].dot(V[:, i]))
+
 for k in range(np.linalg.matrix_rank(myData)):
     Ak = np.zeros((30, np.linalg.matrix_rank(myData)), int)
     for i in range(k):
-        Ak = Ak + svd[1][i, i] * (svd[0][:, i].dot(svd[2][:, i]))
-    error[k] = np.linalg.norm(myData - Ak)
+        Ak = Ak + S[i, i] * (U[:, i].dot(V[:, i]))
+    error[k] = np.linalg.norm(A - Ak, 2)
 
 print(plt.plot(error))
+
+# Making the plot
+# plt.scatter(U1, U2)
+# plt.show()
+# Or
+#plt.savefig("svdplot.png")
+#plt.close()
+#U = svd[0]
+#plt.scatter(U[:,0], U[:,1])
+
+# Figuring out rank
+# np.linalg.norm(myData - myData_k, 2)
+# Uk @ Sk @ Vk
+# np.linalg.norm(myData - myData_k, 2) / np.linalg.norm(myData, 2)
+
+# plt.scatter(U1, U2) instead of plot
+# Color code the plots
