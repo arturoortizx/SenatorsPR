@@ -6,7 +6,7 @@ Analysis of Puerto Rican Senate voting 2017-2020
 
 While studying the Singular Value Decomposition (SVD) and its appllications, I learned that it can be used to compare similarities of voters in a group, like the senate. Consequently, I decided to perform an analysis on Puerto Rican senators' voting by using the SVD.
 
-This analysis takes all of the votes each senator participated in during the term. Then, it plots a point for each senator. Essentially, the closer two points are, the more similar those senators voted. Each point's color is based on that senator's political party. With this analysis, we can figure out if senators in the same party have similar voting patters. We performed this analysis for the whole term and for each year. Additionally, we analyzed a subset of controversial bills.
+This analysis takes all of the votes each senator participated in during the term. Then, it plots a point for each senator. Essentially, the closer two points are, the more similar those senators voted. Each point's color is based on that senator's political party. With this analysis, we can figure out if senators in the same party have similar voting patters. We performed this analysis for the whole term and for each year. Additionally, we analyzed a subset of controversial bills. An example error plot and analysis plot can be found in the repository. The others can be obtained by running SVD_Plot.py.
 
 ## Data
 
