@@ -123,7 +123,7 @@ def read_txt(x, y):
 
     return myData
 
-
+# Plots error of truncated SVD for each rank.
 def plot_err(year, d):
     error = np.zeros([np.linalg.matrix_rank(d), 1])
     for k in range(1, np.linalg.matrix_rank(d)):
@@ -137,7 +137,8 @@ def plot_err(year, d):
     plt.title("Error " + str(year))
     plt.show()
 
-def u_ret(d):
+# returns U and Sigma
+def u_sig(d):
     r = np.linalg.matrix_rank(d)
-    [U, _, _] = SVD.rsvd(d, r, 5, 1)
-    return U
+    [U, S, _] = SVD.rsvd(d, r, 5, 1)
+    return [U, S]
