@@ -119,12 +119,12 @@ def read_txt(x, y):
     print(df)
 
 
-    print(np.zeros(np.shape(myData)))
+    print(np.shape(myData))
 
     return myData
 
 
-def plot_err(title, d):
+def plot_err(year, d):
     error = np.zeros([np.linalg.matrix_rank(d), 1])
     for k in range(1, np.linalg.matrix_rank(d)):
         [U, S, V] = SVD.rsvd(d, k, 5, 1)
@@ -134,11 +134,10 @@ def plot_err(title, d):
         error[k - 1] = np.linalg.norm(d - Ak) / np.linalg.norm(d)
 
     plt.plot(error)
-    plt.title(title)
+    plt.title("Error " + str(year))
     plt.show()
 
 def u_ret(d):
     r = np.linalg.matrix_rank(d)
-    [U, S, V] = SVD.rsvd(r, r, 5, 1)[0]
+    [U, _, _] = SVD.rsvd(d, r, 5, 1)
     return U
-
