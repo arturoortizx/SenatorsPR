@@ -18,6 +18,8 @@ The pdf's were converted into 16 txt files. Then, in PR_Senators.py a txt file c
 
 Since many bills had most, or all, of the senators vote the same way, the senators' votes are all correlated. So, to more precisely achieve the goal of finding which senators have simimlar voting patterns it is necessary to look at a subset of bills where senators voted differently. We define a controversial bill as one that had 5-25 out of 30 senators vote yes. This means a controversial bill has at least 15% disagreement. The same SVD analysis was performed on this subset of bills.
 
+We also did the same for non controversial bills which simply all of the bills that were not controversial. That is, 25 or more senators agreed on the bill.
+
 ## What's Next
 
 For now, the analysis only shows the political party of a senator. It would be useful to know which senators have the closest voting patterns. So, next, we will make a plot where the senator represented by each point is displayed. Also, this analysis would be performed every year of the upcoming 2021-2024 term, which has more political parties represented. Furthermore, if more information is needed, this analysis can be performed on other subsets of bills.
