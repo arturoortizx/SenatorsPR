@@ -78,12 +78,27 @@ plot_err("2017-2020 *", myData)
 plt.savefig("2017-2020 controversial error.png")
 plt.close()
 
+
 plot_svd("2017-2020 *", u_sig(myData)[0])
 plt.savefig("2017-2020 controversial SVD.png")
 plt.close()
 
 plot_pc("2017-2020 *", u_sig(myData))
 plt.savefig("2017-2020 controversial PCA.png")
+plt.close()
+
+myData = not_cont_bills(1, 16)
+
+plot_err("2017-2020 **", myData)
+plt.savefig("2017-2020 not controversial error.png")
+plt.close()
+
+plot_svd("2017-2020 **", u_sig(myData)[0])
+plt.savefig("2017-2020 not controversial SVD.png")
+plt.close()
+
+plot_pc("2017-2020 **", u_sig(myData))
+plt.savefig("2017-2020 not controversial PCA.png")
 plt.close()
 
 for i in range(4):
@@ -99,4 +114,18 @@ for i in range(4):
 
     plot_pc(str(i + 2017) + "*", u_sig(myData))
     plt.savefig(str(i + 2017) + " controversial PCA.png")
+    plt.close()
+
+    myData = not_cont_bills(4 * i + 1, 4 * i + 4)
+
+    plot_err(str(i + 2017) + "**", myData)
+    plt.savefig(str(i + 2017) + " not controversial error.png")
+    plt.close()
+
+    plot_svd(str(i + 2017) + "**", u_sig(myData)[0])
+    plt.savefig(str(i + 2017) + " not controversial SVD.png")
+    plt.close()
+
+    plot_pc(str(i + 2017) + "**", u_sig(myData))
+    plt.savefig(str(i + 2017) + " not controversial PCA.png")
     plt.close()
