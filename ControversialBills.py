@@ -12,13 +12,13 @@ def cont_bills(x, y):
 
     cont = 0
     for i in range(np.shape(myData)[1]):
-        if count_ones(myData[:, i]) not in range(5, 25):
+        if count_ones(myData[:, i]) in range(5, 25):
            cont = cont + 1
 
     A = np.zeros([30, cont])
     j = 0
     for i in range(np.shape(myData)[1]):
-        if count_ones(myData[:, i]) not in range(5, 25):
+        if count_ones(myData[:, i]) in range(5, 25):
             A[:, j] = myData[:, i]
             j = j + 1
 
